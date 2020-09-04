@@ -1,0 +1,45 @@
+@using theWall.Models
+@model List<Message>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="~/css/site.css"/>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <h4 class="white mr-auto">CodingDojo Wall</h4>
+        <a href="/logout" class="badge badge-primary">Log out</a>
+    </nav>
+    <br>
+    <div class="container">
+        <br>
+        @foreach (var m in @Model)
+        {
+            <table class="margintoptwo table table-primary">
+            <th scope="col">@m.Creator.FirstName @m.Creator.LastName @m.CreatedAt
+            </th>
+            <tbody>
+                <td class="color bg-light">
+                    <h6 class="d-inline">@m.Content</h6>
+                    <a href="/message/@m.MessageId/delete">
+                        <img border="0" alt="delete" width="35" height="35">
+                    </a>
+                </td>
+            </tbody>
+            </table>
+            <div class="container">
+                @foreach (var c in @m.theComments)
+                {
+                <table class="margintoptwo table table-success">
+                    <th scope="col">@c.Creator.FirstName @c.Creator.LastName</th>
+                    <tbody>
+                        <td class="color bg-light"></td>
+                    </tbody>
+                </table>
+                }
+                <partial name="CommentPartial" />
+                <br>
+            </div>
+        }
+    </div>
+</body>
